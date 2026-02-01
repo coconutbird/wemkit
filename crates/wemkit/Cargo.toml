@@ -1,0 +1,21 @@
+[package]
+name = "wemkit"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+description = "WEM/OGG audio conversion library"
+
+[lints]
+workspace = true
+
+[dependencies]
+audioadapter-buffers = "2.0.0"
+dirs = "6.0.0"
+hound = "3.5.1"
+rubato = "1.0.1"
+symphonia = { version = "0.5.5", features = ["mp3", "ogg", "flac", "wav", "aac", "isomp4"] }
+tempfile = "3.24.0"
+ww2ogg = "0.1.0"

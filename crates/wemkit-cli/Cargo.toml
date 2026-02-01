@@ -1,0 +1,19 @@
+[package]
+name = "wemkit-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CLI for WEM/OGG audio conversion"
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "wemkit"
+path = "src/main.rs"
+
+[dependencies]
+wemkit = { path = "../wemkit" }
+clap = { version = "4.5.56", features = ["derive", "env"] }
+

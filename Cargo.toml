@@ -1,0 +1,19 @@
+[workspace]
+members = ["crates/wemkit", "crates/wemkit-cli"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+repository = "https://github.com/coconutbird/wemkit"
+keywords = ["audio", "wem", "wwise", "ogg", "vorbis"]
+categories = ["multimedia::audio", "command-line-utilities"]
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+all = "warn"
+# Pedantic is too noisy for this project - enable selectively if desired
+# pedantic = "warn"

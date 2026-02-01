@@ -1,0 +1,42 @@
+# Build artifacts
+/target/
+**/target/
+
+# Cargo lock for libraries (keep for binaries)
+# Cargo.lock  # Uncomment if this is a library-only project
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Test files
+*.wem
+*.ogg
+!crates/**/testdata/**
+
+# Environment files
+.env
+.env.local
+
+# Debug files
+*.pdb
+*.dSYM/
+
+# Coverage
+*.profraw
+*.profdata
+lcov.info
+tarpaulin-report.html
+
+# Documentation build
+/doc/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
