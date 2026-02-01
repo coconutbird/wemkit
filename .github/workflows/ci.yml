@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build
+        run: cargo build --release
+
+      - name: Test
+        run: cargo test
+
+      - name: Clippy
+        run: cargo clippy -- -D warnings
+
+      - name: Build (win-x64)
+        run: cargo build --release --target x86_64-pc-windows-msvc
+
+      - name: Build (win-arm64)
+        run: |
+          rustup target add aarch64-pc-windows-msvc
+          cargo build --release --target aarch64-pc-windows-msvc
+
+      - name: Upload artifact (win-x64)
+        uses: actions/upload-artifact@v4
+        with:
+          name: wemkit-win-x64
+          path: target/x86_64-pc-windows-msvc/release/wemkit.exe
+
+      - name: Upload artifact (win-arm64)
+        uses: actions/upload-artifact@v4
+        with:
+          name: wemkit-win-arm64
+          path: target/aarch64-pc-windows-msvc/release/wemkit.exe
