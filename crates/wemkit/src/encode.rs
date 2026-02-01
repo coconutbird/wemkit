@@ -47,12 +47,19 @@ fn create_wwise_project(
     project_dir: &Path,
     verbose: bool,
 ) -> Result<PathBuf, Box<dyn std::error::Error>> {
-    let project_file = project_dir.join("wemkit_conversion.wproj");
+    // Wwise requires project to be in a folder with the same name as the project
+    // e.g., <temp>/proj_abc123/proj_abc123.wproj
+    // Use the temp dir name as the project name to ensure uniqueness
+    // Note: Do NOT pre-create the project subdirectory - Wwise wants to create it itself
+    let project_name = project_dir
+        .file_name()
+        .and_then(|n| n.to_str())
+        .ok_or("Invalid project directory name")?;
 
-    if verbose {
-        println!("  Creating Wwise project...");
-    }
+    let project_subdir = project_dir.join(project_name);
+    let project_file = project_subdir.join(format!("{}.wproj", project_name));
 
+    // Note: --quiet flag causes exit code 1 even on success (Wwise bug), so we don't use it
     let output = Command::new(wwise_console)
         .arg("create-new-project")
         .arg(&project_file)
